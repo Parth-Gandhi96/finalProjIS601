@@ -31,10 +31,6 @@
 [Doc with screenshots for explanation of running of the Project](Final%20Term%20Project%20Running%20-%20IS%20601.md)
 
 #### Rest API GET requests:
-- last5yearChartsJSON
-- avgProfitGenreWiseJSON
-- avgProfitImdbWiseJSON
-- top10ProfitedJSON
 
 | Request URL      | Description |
 | :---        |    :----:   | 
