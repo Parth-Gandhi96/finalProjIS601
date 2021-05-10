@@ -1,0 +1,37 @@
+<html>
+
+<head>
+
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/signin.css') }}">
+    <title>Sign in</title>
+</head>
+
+<body>
+    <div id="note">
+
+    </div>
+<div class="mainSignUP">
+    <p class="sign" align="center">Reset Password</p>
+    <form class="form1" action="/resetPass" method="post">
+        <input name="userCode" type="hidden" value={{msg.code}}>
+        <input class="pass" name="inputPassword" type="password"placeholder="New Password">
+        <input class="pass" name="inputConfPassword" type="password"placeholder="Confirm Password">
+    <button type="submit"  class="submit" >Submit</button>
+    </form>
+    <p class="forgot" align="center"><a href="forgetpass">Forgot Password?</a></p>
+    <p class="signup" align="center"><a href="/">Already User</a></p>
+
+
+</div>
+</body>
+
+<script>
+    var msg = {{ msg|tojson|safe }}
+    var error = msg['errorMsg']
+    if(error!='None' || typeof(error) == undefined)
+        document.getElementById('note').innerHTML = error;
+</script>
+
+</html>
