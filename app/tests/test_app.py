@@ -1,12 +1,11 @@
 import unittest
 import app
-import requests
 
 class HomeViewTest(unittest.TestCase):
 
     def test_avgProfitGenreWiseJSON(self):
         try:
-            data = requests.get('http://localhost:5000/avgProfitGenreWiseJSON')
+            data = app.avgProfitGenreWiseJSON()
             print(data)
             if data is None:
                 print("avgProfitGenreWiseJSON Data is NONE")

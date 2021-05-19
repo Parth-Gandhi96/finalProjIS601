@@ -28,7 +28,7 @@ before_script:
   - sleep 20
   - export FLASK_APP=app.py
   - mysql -u root --password="" < db/init.sql
-  - flask run -h localhost -p 5000 > /dev/null 2>&1 &
+#  - flask run -h localhost -p 5000 > /dev/null 2>&1 &
   - sleep 60
 script:
   - python app/test_app.py
