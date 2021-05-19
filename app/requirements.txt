@@ -3,5 +3,7 @@ flask-mysql
 sendgrid
 python-dotenv
 simplejson
+WebOb
+Paste
 webapp2
 Flask-DebugToolbar
