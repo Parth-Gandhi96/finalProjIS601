@@ -18,8 +18,8 @@ env:
    nKesFtiAdEU5ScUqt1r79rD8onDd5PpoDTdD1f9CZA="
 before_script:
   - sleep 20
-  - export FLASK_APP=app.py
   - mysql -u root --password="" < db/init.sql
+#    - export FLASK_APP=app/app.py
 #  - flask run -h localhost -p 5000 > /dev/null 2>&1 &
   - sleep 60
 script:
