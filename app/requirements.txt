@@ -3,5 +3,4 @@ flask-mysql
 sendgrid
 python-dotenv
 simplejson
-unittest
 webapp2
