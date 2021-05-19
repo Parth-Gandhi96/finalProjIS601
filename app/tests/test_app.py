@@ -5,25 +5,15 @@ import mysql.connector
 
 from flask import request, Response
 
-class helper:
-    @classmethod
-    def setCursor(cls):
-        try:
-            mydb = mysql.connector.connect(
-                host="127.0.0.1",
-                user="root",
-                password="",
-                database="finalProjData"
-            )
-            app.cursor = mydb.cursor()
-        except:
-            print("Some error while fetching data using mysql connector!")
-
 class AppTest(unittest.TestCase):
 
     def test_avgProfitGenreWiseJSON(self):
         try:
-            helper.setCursor()
+            try:
+                app.cursor = mysql.connector.connect(host="127.0.0.1", user="root", password="",
+                                                     database="finalProjData").cursor
+            except:
+                print("Error while fetching data using mysql connector!")
             res = app.avgProfitGenreWiseJSON()
             print(res.response)
             if res is None:
