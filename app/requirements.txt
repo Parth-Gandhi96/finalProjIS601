@@ -4,3 +4,4 @@ sendgrid
 python-dotenv
 simplejson
 pytest
+requests
