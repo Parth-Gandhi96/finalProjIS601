@@ -22,7 +22,7 @@ env:
     vWKl36O8vhwf28QQYFB26HuWkwYdftAWsLQIHWfnSx2bMIji2rzG6T3laBH0eItzI61SiE8EfY6NcQVEz0SYziMhitYH3kkfYzLLsWG5bBYxbfhvc0TMlLoxlu2oLkUEZVAjgV+VwO9D9NgAXJGE1ffS9OMOlV6F5Rq
     PMKpbUtf6p5PTy10R/M69Z8ZLlj2PgSIdDhlR42LwA="
 
-script:
+after_success:
   - python -m pytest -v app/test_app.py
 
 
