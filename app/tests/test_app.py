@@ -8,7 +8,6 @@ import mysql.connector
 
 class HomeViewTest(unittest.TestCase):
 
-    myCursor = None
 
     @classmethod
     def setUpClass(cls):
@@ -19,13 +18,24 @@ class HomeViewTest(unittest.TestCase):
                 password="",
                 database="finalProjData"
             )
-            cls.myCursor = mydb.cursor()
+            myCursor = mydb.cursor()
         except:
             print("Some error while fetching data using mysql connector!")
 
     def test_avgProfitGenreWiseJSON(self):
         try:
-            app.cursor = self.myCursor
+            mydb = mysql.connector.connect(
+                host="127.0.0.1",
+                user="root",
+                password="",
+                database="finalProjData"
+            )
+            myCursor = mydb.cursor()
+        except:
+            print("Some error while fetching data using mysql connector!")
+
+        try:
+            app.cursor = myCursor
             data = app.avgProfitGenreWiseJSON()
             print(data)
             if data is None:
