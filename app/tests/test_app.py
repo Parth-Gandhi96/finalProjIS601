@@ -1,6 +1,9 @@
 import unittest
 from app import app
 
+from flaskext.mysql import MySQL
+from pymysql.cursors import DictCursor
+
 class HomeViewTest(unittest.TestCase):
 
     @classmethod
