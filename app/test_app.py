@@ -10,7 +10,14 @@ class HomeViewTest(unittest.TestCase):
         cls.temp_app = app()
 
     def setUp(self):
-        pass
+        try:
+            data = cls.temp_app.fetchAvgProfitGenreWise()
+            if data is None:
+                print("Data is NONE")
+            else:
+                print("Data is not NONE")
+        except:
+            print("Cannot call the function for fetchAvgProfitGenreWise!")
 
 
 if __name__ == "__main__":
