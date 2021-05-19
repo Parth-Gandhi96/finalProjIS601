@@ -1,11 +1,11 @@
 import unittest
-import webapp2
+import webapp
 
 
 class HomeViewTest(unittest.TestCase):
 
     def setUp(self):
-      self.app = webapp2.app.test_client()
+      self.app = webapp.app.test_client()
       self.app.testing = True
 
     def test_home_page(self):

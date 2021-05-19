@@ -3,4 +3,4 @@ flask-mysql
 sendgrid
 python-dotenv
 simplejson
-webapp2
+webapp
