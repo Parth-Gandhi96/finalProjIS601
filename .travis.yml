@@ -6,6 +6,7 @@ services:
 install:
   - pip install  -r app/requirements.txt --upgrade pip
 before_script:
+  - export FLASK_APP="flaskApp"
   - mysql -u root --password="" < db/init.sql
 env:
   - secure: "wgt3OAzHLUm+BO/Iojya7y5uUVcdKCqU+ayAOvpe7ZIeYiRuZjuRpuhAOtu6fSuwJkG8Yy55jH9MdQC7ukuteDTCTd28UVZMb9kvuNLZ2yDjcnLNFiOmeeVHo93qVIogzYVRJrA5+mknj15LeYKeP/fI
@@ -22,6 +23,7 @@ env:
 
 script:
   - python app/test_app.py
+
 
 
 
