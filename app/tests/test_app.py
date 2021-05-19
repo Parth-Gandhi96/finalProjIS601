@@ -8,18 +8,10 @@ import mysql.connector
 
 class HomeViewTest(unittest.TestCase):
 
+    myCursor = None
+
     @classmethod
     def setUpClass(cls):
-        try:
-            app.app,app.mysql = app.createRunAppTest()
-            try: app.run(host='0.0.0.0')
-            except: print("app run failed on 0.0.0.0")
-            try: app.mysql.init_app(app)
-            except: print("mysql init failed")
-        except Exception as e:
-            print("Error while creating the app and running it")
-            print(e)
-
         try:
             mydb = mysql.connector.connect(
                 host="127.0.0.1",
@@ -27,17 +19,13 @@ class HomeViewTest(unittest.TestCase):
                 password="",
                 database="finalProjData"
             )
-            mycursor = mydb.cursor()
-            mycursor.execute("SELECT * FROM movieData")
-            myresult = mycursor.fetchall()
-            for x in myresult:
-                print(x)
+            cls.myCursor = mydb.cursor()
         except:
-            print("some error while fetching data using mysql connector!")
+            print("Some error while fetching data using mysql connector!")
 
     def test_avgProfitGenreWiseJSON(self):
         try:
-            data = app.avgProfitGenreWiseJSON()
+            data = app.avgProfitGenreWiseJSON(self.myCursor)
             print(data)
             if data is None:
                 print("avgProfitGenreWiseJSON Data is NONE")

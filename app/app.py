@@ -28,17 +28,6 @@ app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
 mysql.init_app(app)
 
 
-def createRunAppTest():
-    app = Flask(__name__)
-
-    mysql = MySQL(cursorclass=DictCursor)
-
-    app.config['MYSQL_DATABASE_HOST'] = 'db'
-    app.config['MYSQL_DATABASE_USER'] = 'root'
-    app.config['MYSQL_DATABASE_PASSWORD'] = ''
-    app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
-
-    return app,mysql
 
 @app.route('/', methods=['GET'])
 def homePage():
@@ -49,7 +38,7 @@ def login():
     email = str(request.form.get("inputUsername"))
     password = str(request.form.get("inputPassword"))
 
-    passInDB = fetchUserPassword(email)
+    passInDB = fetchUserPassword(email,mysql.get_db().cursor())
     print("pass:"+str(passInDB)+" -- "+str(password)+"  bool :  "+str(str(passInDB)==str(password)))
     if (passInDB is not None and str(passInDB)==str(password)):
         return redirect("/homePage", code=302)
@@ -80,12 +69,12 @@ def signup():
     urlToSend = os.environ.get('HOST_IP') + 'emailVerification/'+verificationNewCode
     sendEmail(email, 'Verify your account', '<strong> Please confirm you account by clicking this URL: '+urlToSend+' </strong>')
 
-    addUserData(email, password, verificationNewCode)
+    addUserData(email, password, verificationNewCode,mysql.get_db().cursor())
     return redirect("/", code=302)
 
 @app.route('/emailVerification/<verificationCode>',methods=['GET'])
 def emailVerify(verificationCode):
-    usersEmail = makeUserVerified(verificationCode)
+    usersEmail = makeUserVerified(verificationCode,mysql.get_db().cursor())
     if (usersEmail is False):
         print('User is already verified OR using malfunctioned URL')
         return redirect("/", code=302)
@@ -116,7 +105,7 @@ def forgetPass():
     if (fetchUserPassword(email) is None):
         return render_template("signup.html", msg={'errorMsg': 'Email is not Registered or Not verified yet.'})
 
-    newCode = updateUserCode(email)
+    newCode = updateUserCode(email,mysql.get_db().cursor())
     print('code to send in email : '+newCode)
     urlToSend = os.environ.get('HOST_IP') + 'resetPass/'+newCode
     print('url sent in mail for reseting password : '+urlToSend)
@@ -128,7 +117,7 @@ def forgetPass():
 @app.route('/resetPass/<code>', methods=['GET'])
 def resetPassPage(code):
     print('code for reseting password '+str(code))
-    if checkCode(code) is False:
+    if checkCode(code,mysql.get_db().cursor()) is False:
         return redirect("/", code=302)
     return render_template('resetPassPage.html', msg={'errorMsg': 'None','code':str(code)})
 
@@ -142,7 +131,7 @@ def resetPass():
     if (password!=confpassword):
         render_template('resetPassPage.html', msg={'errorMsg': 'Both password are not same','code':str(code)})
 
-    email = updateUserPass(code,password)
+    email = updateUserPass(code,password,mysql.get_db().cursor())
     if(email is False):
         print('Wrong url using to reset the password, no email address associated with code is found!')
         return redirect('/', code=302)
@@ -163,7 +152,7 @@ def landingPage():
 
 @app.route('/top10Profited', methods=['GET'])
 def top10Profited():
-    movieData = fetchTop10Profited();
+    movieData = fetchTop10Profited(mysql.get_db().cursor());
     movieNames = []
     movieCollections = []
     movieBudgets = []
@@ -190,14 +179,14 @@ def top10Profited():
 
 @app.route('/top10ProfitedJSON', methods=['GET'])
 def top10ProfitedJSON():
-    movieData = fetchTop10Profited();
+    movieData = fetchTop10Profited(mysql.get_db().cursor());
     json_result = json.dumps(movieData);
     resp = Response(json_result, status=200, mimetype='application/json')
     return resp
 
 @app.route('/avgProfitImdbWise', methods=['GET'])
 def avgProfitImdbWise():
-    movieData = fetchAvgProfitImdbWise();
+    movieData = fetchAvgProfitImdbWise(mysql.get_db().cursor());
     range = []
     avgProfit = []
 
@@ -219,14 +208,14 @@ def avgProfitImdbWise():
 
 @app.route('/avgProfitImdbWiseJSON', methods=['GET'])
 def avgProfitImdbWiseJSON():
-    movieData = fetchAvgProfitImdbWise();
+    movieData = fetchAvgProfitImdbWise(mysql.get_db().cursor());
     json_result = json.dumps(movieData);
     resp = Response(json_result, status=200, mimetype='application/json')
     return resp
 
 @app.route('/avgProfitGenreWise', methods=['GET'])
 def avgProfitGenreWise():
-    movieData = fetchAvgProfitGenreWise();
+    movieData = fetchAvgProfitGenreWise(mysql.get_db().cursor());
     genre = []
     count = []
     avgProfit = []
@@ -262,14 +251,14 @@ def avgProfitGenreWise():
 
 @app.route('/avgProfitGenreWiseJSON', methods=['GET'])
 def avgProfitGenreWiseJSON():
-    movieData = fetchAvgProfitGenreWise();
+    movieData = fetchAvgProfitGenreWise(mysql.get_db().cursor());
     json_result = json.dumps(movieData);
     resp = Response(json_result, status=200, mimetype='application/json')
     return resp
 
 @app.route('/last5yearCharts', methods=['GET'])
 def last5yearCharts():
-    movieData = fetchMovieCollectionLast5Years();
+    movieData = fetchMovieCollectionLast5Years(mysql.get_db().cursor());
     movieNames = []
     movieCollections = []
     movieBudgets = []
@@ -303,15 +292,13 @@ def last5yearCharts():
 
 @app.route('/last5yearChartsJSON', methods=['GET'])
 def last5yearChartsJSON():
-    movieData = fetchMovieCollectionLast5Years();
+    movieData = fetchMovieCollectionLast5Years(mysql.get_db().cursor());
     json_result = json.dumps(movieData);
     resp = Response(json_result, status=200, mimetype='application/json')
     return resp
 
 ## Movie Database operations:
-def fetchMovieCollectionLast5Years():
-    cursor = mysql.get_db().cursor()
-
+def fetchMovieCollectionLast5Years(cursor):
     inputData = (2016)
     select_query = """SELECT t.film_title, t.worldwide_gross, t.film_budget FROM movieData t WHERE t.release_year > %s """
     cursor.execute(select_query, inputData)
@@ -320,9 +307,7 @@ def fetchMovieCollectionLast5Years():
     # print("movie Data: \n"+str(movieData))
     return movieData
 
-def fetchTop10Profited():
-    cursor = mysql.get_db().cursor()
-
+def fetchTop10Profited(cursor):
     select_query = """select t.film_title,t.worldwide_gross,t.film_budget,(t.worldwide_gross-t.film_budget)*100/t.film_budget as profit
 from movieData t order by profit desc limit 10"""
     cursor.execute(select_query)
@@ -331,9 +316,7 @@ from movieData t order by profit desc limit 10"""
     # print("fetchTop10Profited: \n"+str(movieData))
     return movieData
 
-def fetchAvgProfitImdbWise():
-    cursor = mysql.get_db().cursor()
-
+def fetchAvgProfitImdbWise(cursor):
     select_query = """select (t.imdb)-1 as a,(t.imdb) as b, avg((t.worldwide_gross-t.film_budget)*100/t.film_budget) as avg_profit
                     from (select *,ceil(imdb_rating) as imdb from movieData) t group by t.imdb"""
     cursor.execute(select_query)
@@ -342,9 +325,7 @@ def fetchAvgProfitImdbWise():
     # print("fetchTop10Profited: \n"+str(movieData))
     return movieData
 
-def fetchAvgProfitGenreWise():
-    cursor = mysql.get_db().cursor()
-
+def fetchAvgProfitGenreWise(cursor):
     select_query = """select (t.genre_1) as genre, count(*) as count, 
                     round(avg((t.worldwide_gross-t.film_budget)*100/t.film_budget)) as avg_profit
                     from movieData t group by t.genre_1"""
@@ -356,15 +337,13 @@ def fetchAvgProfitGenreWise():
 
 
 ## User Database operations:
-def getAllUserData() -> str:
-    cursor = mysql.get_db().cursor()
+def getAllUserData(cursor) -> str:
     cursor.execute('SELECT * FROM userTable')
     result = cursor.fetchall()
     return result
 
-def fetchUserPassword(email):
+def fetchUserPassword(email,cursor):
     # Code for fetching data from Users table from DB and returning in Directory format (JSON)
-    cursor = mysql.get_db().cursor()
 
     inputData = (email)
     select_query = """SELECT * FROM userTable t WHERE t.email = %s """
@@ -381,20 +360,18 @@ def fetchUserPassword(email):
 
     return str(userInfo['pass'])
 
-def addUserData(email,password,verificationNewCode):
+def addUserData(email,password,verificationNewCode,cursor):
     # userData[email] = {'pass':password,'code':'','verificationCode':verificationNewCode}
 
     # Code for adding new user in Users table
-    cursor = mysql.get_db().cursor()
     inputData = (email, password,'', verificationNewCode)
     sql_insert_query = """INSERT INTO userTable (email,pass,code,verificationCode) VALUES (%s, %s, %s, %s) """
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
     return True
 
-def updateUserPass(code,password):
+def updateUserPass(code,password,cursor):
     # Code for updating users info in Users table, make sure to change the code to ''
-    cursor = mysql.get_db().cursor()
 
     inputData = (code)
     select_query = """SELECT * FROM userTable t WHERE t.code = %s """
@@ -415,11 +392,10 @@ def updateUserPass(code,password):
     except:
         return False
 
-def updateUserCode(email):
+def updateUserCode(email,cursor):
     newCode = getNewCode()
     # update in DB for that user, in code column
     # userData[email]['code'] = newCode
-    cursor = mysql.get_db().cursor()
     inputData = (newCode,email)
     sql_update_query = """UPDATE userTable t SET t.code = %s WHERE t.email = %s """
     cursor.execute(sql_update_query, inputData)
@@ -429,8 +405,7 @@ def updateUserCode(email):
     except:
         return False
 
-def makeUserVerified(verificationCode):
-    cursor = mysql.get_db().cursor()
+def makeUserVerified(verificationCode,cursor):
 
     inputData = (verificationCode)
     select_query = """SELECT * FROM userTable t WHERE t.verificationCode = %s """
@@ -452,11 +427,11 @@ def makeUserVerified(verificationCode):
         return False
 
 
-def getNewCode():
+def getNewCode(cursor):
     # fetch all the code from DB of userData and store in codeMap
     codeSet = set()
 
-    userData = json.loads(json.dumps(getAllUserData()));
+    userData = json.loads(json.dumps(getAllUserData(cursor)));
     for x in userData:
         codeSet.add(x['code'])
 
@@ -466,11 +441,11 @@ def getNewCode():
         temp = ''.join(random.choice(letters) for i in range(10))
     return temp
 
-def getNewVerificationCode():
+def getNewVerificationCode(cursor):
     # fetch all the code from DB of userData and store in codeMap
     codeSet = set()
 
-    userData = json.loads(json.dumps(getAllUserData()));
+    userData = json.loads(json.dumps(getAllUserData(cursor)));
     for x in userData:
         codeSet.add(x['verificationCode'])
 
@@ -480,11 +455,11 @@ def getNewVerificationCode():
         temp = ''.join(random.choice(letters) for i in range(10))
     return temp
 
-def checkCode(code):
+def checkCode(code,cursor):
     # fetch all the code from DB of userData and store in codeMap
     codeSet = set()
 
-    userData = json.loads(json.dumps(getAllUserData()));
+    userData = json.loads(json.dumps(getAllUserData(cursor)));
     for x in userData:
         codeSet.add(x['code'])
 
