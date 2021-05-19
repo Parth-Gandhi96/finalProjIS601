@@ -24,22 +24,19 @@ class helper:
 class AppTest(unittest.TestCase):
 
     def test_avgProfitGenreWiseJSON(self):
-        myCursor = helper.getMySqlCursor();
-        if myCursor is None:
-            print("Cursor object is returned None!")
-        else:
-            try:
-                app.cursor = myCursor
-                res = app.avgProfitGenreWiseJSON()
-                print(res)
-                if res is None:
-                    print("avgProfitGenreWiseJSON Data is NONE")
-                else:
-                    self.assertEqual(res.status_code, 200)
-                    print("Successfully checked for avgProfitGenreWiseJSON: 200 OK!")
-            except Exception as e:
-                print("Cannot call the function for avgProfitGenreWiseJSON!")
-                print(e)
+
+        try:
+            app.testHelper()
+            res = app.avgProfitGenreWiseJSON()
+            print(res.response)
+            if res is None:
+                print("avgProfitGenreWiseJSON Data is NONE")
+            else:
+                self.assertEqual(res.status_code, 200)
+                print("Successfully checked for avgProfitGenreWiseJSON: 200 OK!")
+        except Exception as e:
+            print("Cannot call the function for avgProfitGenreWiseJSON!")
+            print(e)
 
     def test_tempPass_always(self):
         pass

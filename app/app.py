@@ -15,6 +15,7 @@ import random
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
+import mysql.connector
 
 app = Flask(__name__)
 
@@ -33,6 +34,20 @@ try:
 except Exception as e:
     print("Cursor init in APP didnt work correctly.")
     print(e)
+
+def testHelper():
+    global cursor
+    try:
+        mydb = mysql.connector.connect(
+            host="127.0.0.1",
+            user="root",
+            password="",
+            database="finalProjData"
+        )
+        myCursor = mydb.cursor()
+    except:
+        print("Some error while fetching data using mysql connector!")
+    cursor = myCursor
 
 
 @app.route('/', methods=['GET'])
