@@ -22,7 +22,7 @@ env:
     PMKpbUtf6p5PTy10R/M69Z8ZLlj2PgSIdDhlR42LwA="
 
 script:
-  - python app/test_app.py
+  - python -m unittest app/test_app.py
 
 
 

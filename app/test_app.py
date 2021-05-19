@@ -1,16 +1,12 @@
 import unittest
 import webapp2
+import app
 
 
 class HomeViewTest(unittest.TestCase):
 
-    def setUp(self):
-      self.app = webapp2.app.test_client()
-      self.app.testing = True
-
-    def test_home_page(self):
-        home = self.app.get('/')
-        self.assertIn('Home Page', str(home.data))
+    def test_test(self):
+        assert app.test() == "Works!"
 
 
 if __name__ == "__main__":
