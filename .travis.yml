@@ -5,10 +5,6 @@ services:
   - mysql
 install:
   - pip install  -r app/requirements.txt --upgrade pip
-before_script:
-  - export FLASK_APP="flaskApp"
-  - mysql -u root --password="" < db/init.sql
-  - python -u app/app.py > /dev/null 2>&1 &
 env:
   - secure: "wgt3OAzHLUm+BO/Iojya7y5uUVcdKCqU+ayAOvpe7ZIeYiRuZjuRpuhAOtu6fSuwJkG8Yy55jH9MdQC7ukuteDTCTd28UVZMb9kvuNLZ2yDjcnLNFiOmeeVHo93qVIogzYVRJrA5+mknj15LeYKeP/fI
     UcQfW96QAuuPrFT6BSkypzmfqzm6tgiN06vzgnIlFtY+3A2V0uw6T8kw0zPs6vICybi4Jwy4gx8a3b2+G8VCu22j+1jR+c+DTUzfceJWMMsWdUjhez009UUgLYn6wdSCEa062vxt27lTXgZBft2ESKeeSIEG5FDKTeK
@@ -21,6 +17,11 @@ env:
     XEuYIws82cHJRMqj+rryfJCX1ZR0DD1IBQCUI3BxwhHGHH+X8Ygc7QNNicYku/O3e+wgiv/wnZW+iux3jun2q557D2WPLkuDjLJrm1U8ehWRBIHCjc4srjuSUG2xU6oJynvsqccjZKrGKu7j+pQI0VGDT9CbjO0UVcK
     vWKl36O8vhwf28QQYFB26HuWkwYdftAWsLQIHWfnSx2bMIji2rzG6T3laBH0eItzI61SiE8EfY6NcQVEz0SYziMhitYH3kkfYzLLsWG5bBYxbfhvc0TMlLoxlu2oLkUEZVAjgV+VwO9D9NgAXJGE1ffS9OMOlV6F5Rq
     PMKpbUtf6p5PTy10R/M69Z8ZLlj2PgSIdDhlR42LwA="
+
+before_script:
+  - export FLASK_APP="flaskApp"
+  - mysql -u root --password="" < db/init.sql
+  - python -u app/app.py > /dev/null
 
 after_success:
   - python -m pytest -v app/test_app.py
