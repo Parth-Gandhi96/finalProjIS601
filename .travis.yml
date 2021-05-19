@@ -23,7 +23,7 @@ before_script:
 #  - flask run -h localhost -p 5000 > /dev/null 2>&1 &
   - sleep 60
 script:
-  - python -m pytest -v
+  - python -m pytest -v -s
 
 
 
