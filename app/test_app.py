@@ -12,7 +12,7 @@ class HomeViewTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        tempApp = app()
+        cls.tempApp = app()
 
     def test_env_var(self):
         try:
