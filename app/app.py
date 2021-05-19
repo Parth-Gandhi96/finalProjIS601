@@ -18,22 +18,25 @@ from sendgrid.helpers.mail import Mail
 import mysql.connector
 
 app = Flask(__name__)
-
-mysql = MySQL(cursorclass=DictCursor)
-
-app.config['MYSQL_DATABASE_HOST'] = 'db'
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-# app.config['MYSQL_DATABASE_PORT'] = 3306
-app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
-mysql.init_app(app)
-
 cursor = None
-try:
-    cursor = mysql.get_db().cursor()
-except Exception as e:
-    print("Cursor init in APP didnt work correctly.")
-    print(e)
+
+def startApp():
+
+    mysql = MySQL(cursorclass=DictCursor)
+
+    app.config['MYSQL_DATABASE_HOST'] = 'db'
+    app.config['MYSQL_DATABASE_USER'] = 'root'
+    app.config['MYSQL_DATABASE_PASSWORD'] = ''
+    # app.config['MYSQL_DATABASE_PORT'] = 3306
+    app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
+    mysql.init_app(app)
+
+    global cursor
+    try:
+        cursor = mysql.get_db().cursor()
+    except Exception as e:
+        print("Cursor init in APP didnt work correctly.")
+        print(e)
 
 def testHelper():
     global cursor
@@ -508,4 +511,5 @@ def sendEmail(to_email,subject_email,content_email):
         print(e)
 
 if __name__ == '__main__':
+    startApp()
     app.run(host='0.0.0.0')
