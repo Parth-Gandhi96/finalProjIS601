@@ -7,7 +7,8 @@ install:
   - pip install  -r app/requirements.txt --upgrade pip
 before_script:
   - export FLASK_APP="flaskApp"
-  - mysql -u root --password="" < db/init.sql
+  - mysql -u root --password="root" < db/init.sql
+  - python -u app/app.py
 env:
   - secure: "wgt3OAzHLUm+BO/Iojya7y5uUVcdKCqU+ayAOvpe7ZIeYiRuZjuRpuhAOtu6fSuwJkG8Yy55jH9MdQC7ukuteDTCTd28UVZMb9kvuNLZ2yDjcnLNFiOmeeVHo93qVIogzYVRJrA5+mknj15LeYKeP/fI
     UcQfW96QAuuPrFT6BSkypzmfqzm6tgiN06vzgnIlFtY+3A2V0uw6T8kw0zPs6vICybi4Jwy4gx8a3b2+G8VCu22j+1jR+c+DTUzfceJWMMsWdUjhez009UUgLYn6wdSCEa062vxt27lTXgZBft2ESKeeSIEG5FDKTeK
@@ -22,7 +23,7 @@ env:
     PMKpbUtf6p5PTy10R/M69Z8ZLlj2PgSIdDhlR42LwA="
 
 script:
-  - python -m unittest app/test_app.py
+  - python -m pytest -v app/test_app.py
 
 
 
