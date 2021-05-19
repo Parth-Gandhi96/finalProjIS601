@@ -28,7 +28,7 @@ class HomeViewTest(unittest.TestCase):
                 database="finalProjData"
             )
             mycursor = mydb.cursor()
-            mycursor.execute("SELECT * FROM userTable")
+            mycursor.execute("SELECT * FROM movieData")
             myresult = mycursor.fetchall()
             for x in myresult:
                 print(x)
