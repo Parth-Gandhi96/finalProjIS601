@@ -17,12 +17,10 @@ env:
     XEuYIws82cHJRMqj+rryfJCX1ZR0DD1IBQCUI3BxwhHGHH+X8Ygc7QNNicYku/O3e+wgiv/wnZW+iux3jun2q557D2WPLkuDjLJrm1U8ehWRBIHCjc4srjuSUG2xU6oJynvsqccjZKrGKu7j+pQI0VGDT9CbjO0UVcK
     vWKl36O8vhwf28QQYFB26HuWkwYdftAWsLQIHWfnSx2bMIji2rzG6T3laBH0eItzI61SiE8EfY6NcQVEz0SYziMhitYH3kkfYzLLsWG5bBYxbfhvc0TMlLoxlu2oLkUEZVAjgV+VwO9D9NgAXJGE1ffS9OMOlV6F5Rq
     PMKpbUtf6p5PTy10R/M69Z8ZLlj2PgSIdDhlR42LwA="
-
 before_script:
   - export FLASK_APP="flaskApp"
   - mysql -u root --password="" < db/init.sql
-  - python -u app/app.py > /dev/null
-
+  - python -u app/app.py > /dev/null 2>&1 &
 after_success:
   - python -m pytest -v app/test_app.py
 
