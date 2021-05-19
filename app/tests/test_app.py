@@ -2,6 +2,8 @@ import unittest
 from app import app
 
 class HomeViewTest(unittest.TestCase):
+    # @classmethod
+    # def setUpClass(cls):
 
     def test_avgProfitGenreWiseJSON(self):
         try:

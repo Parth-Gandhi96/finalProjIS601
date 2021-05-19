@@ -57,7 +57,7 @@ def signup():
     if (password!=confpassword):
         return render_template("signup.html", msg={'errorMsg':'Passwords donot match.'})
 
-    regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+    regex = r'^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
     if (re.search(regex, email) == False):
         return render_template("signup.html", msg={'errorMsg':'Passwords Enter valid Email address.'})
 
@@ -97,7 +97,7 @@ def forgetPassPage():
 def forgetPass():
     email = str(request.form.get("inputUsername"))
 
-    regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+    regex = r'^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
     if (re.search(regex, email) == False):
         return render_template('forgetPassPage.html', msg={'errorMsg': 'None'})
 
