@@ -21,7 +21,7 @@ env:
     PMKpbUtf6p5PTy10R/M69Z8ZLlj2PgSIdDhlR42LwA="
 
 script:
-  - python -u app/app.py
+  - python app/test_app.py
 
 
 
