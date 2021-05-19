@@ -3,6 +3,14 @@ python:
   - "3.6"
 services:
   - mysql
+before_install:
+  - curl -s -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.0.1-amd64.deb
+  - sudo dpkg -i --force-confnew elasticsearch-7.0.1-amd64.deb
+  - sudo sed -i.old 's/-Xms1g/-Xms128m/' /etc/elasticsearch/jvm.options
+  - sudo sed -i.old 's/-Xmx1g/-Xmx128m/' /etc/elasticsearch/jvm.options
+  - echo -e '-XX:+DisableExplicitGC\n-Djdk.io.permissionsUseCanonicalPath=true\n-Dlog4j.skipJansi=true\n-server\n' | sudo tee -a /etc/elasticsearch/jvm.options
+  - sudo chown -R elasticsearch:elasticsearch /etc/default/elasticsearch
+  - sudo systemctl start elasticsearch
 install:
   - pip install  -r app/requirements.txt --upgrade pip
 env:
@@ -17,6 +25,7 @@ env:
    JXIQ/XvOFvuRZY7VkRtxKopRTS8kEmCRpCh1WDqVVALgjZBhLUrhsQ/zyALQv1nC2ywIrQk8xMSaSE9ts+bvlvt/p0a1V4X0icIgn6TefxgWyiKtbQ5yR9ib3mzshy0afsQwo4gs4hnQJN9HyjcXwEtqUcHV+vLioMB
    nKesFtiAdEU5ScUqt1r79rD8onDd5PpoDTdD1f9CZA="
 before_script:
+  - sleep 20
   - export FLASK_APP=app.py
   - mysql -u root --password="" < db/init.sql
   - flask run -h localhost -p 5000 > /dev/null 2>&1 &
