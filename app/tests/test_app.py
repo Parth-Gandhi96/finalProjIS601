@@ -5,9 +5,9 @@ import mysql.connector
 
 from flask import request, Response
 
-class helper:
-    @staticmethod
-    def getMySqlCursor():
+class AppTest(unittest.TestCase):
+
+    def setUp(self):
         myCursor = None
         try:
             mydb = mysql.connector.connect(
@@ -19,14 +19,10 @@ class helper:
             myCursor = mydb.cursor()
         except:
             print("Some error while fetching data using mysql connector!")
-        return myCursor
-
-class AppTest(unittest.TestCase):
+        app.cursor = myCursor
 
     def test_avgProfitGenreWiseJSON(self):
-
         try:
-            app.testHelper()
             res = app.avgProfitGenreWiseJSON()
             print(res.response)
             if res is None:
