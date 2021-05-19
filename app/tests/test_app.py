@@ -2,10 +2,15 @@ import unittest
 from app import app
 
 class HomeViewTest(unittest.TestCase):
+
     @classmethod
     def setUpClass(cls):
         try:
-            app.createRunAppTest()
+            app.app,app.mysql = app.createRunAppTest()
+            try: app.run(host='0.0.0.0')
+            except: print("app run failed on 0.0.0.0")
+            try: app.mysql.init_app(app)
+            except: print("mysql init failed")
         except Exception as e:
             print("Error while creating the app and running it")
             print(e)

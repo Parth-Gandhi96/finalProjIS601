@@ -28,18 +28,17 @@ app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
 mysql.init_app(app)
 
 
-def createRunAppTest(self):
-    self.app = Flask(__name__)
+def createRunAppTest():
+    app = Flask(__name__)
 
-    self.mysql = MySQL(cursorclass=DictCursor)
+    mysql = MySQL(cursorclass=DictCursor)
 
-    self.app.config['MYSQL_DATABASE_HOST'] = 'db'
-    self.app.config['MYSQL_DATABASE_USER'] = 'root'
-    self.app.config['MYSQL_DATABASE_PASSWORD'] = ''
-    self.app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
-    self.mysql.init_app(app)
+    app.config['MYSQL_DATABASE_HOST'] = 'db'
+    app.config['MYSQL_DATABASE_USER'] = 'root'
+    app.config['MYSQL_DATABASE_PASSWORD'] = ''
+    app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
 
-    self.app.run(host='0.0.0.0')
+    return app,mysql
 
 @app.route('/', methods=['GET'])
 def homePage():
