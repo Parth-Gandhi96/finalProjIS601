@@ -20,6 +20,7 @@ before_script:
   - export FLASK_APP="flaskApp"
   - mysql -u root --password="" < db/init.sql
   - python -u app/app.py > /dev/null 2>&1 &
+  - sleep 60
 script:
   - python app/test_app.py
 
