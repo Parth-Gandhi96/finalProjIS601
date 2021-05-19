@@ -1,0 +1,27 @@
+language: python
+python:
+  - "3.6"
+services:
+  - mysql
+install:
+  - pip install  -r requirements.txt --upgrade pip
+before_script:
+  - mysql -u root --password="root" < db/init.sql
+env:
+  - secure: "wgt3OAzHLUm+BO/Iojya7y5uUVcdKCqU+ayAOvpe7ZIeYiRuZjuRpuhAOtu6fSuwJkG8Yy55jH9MdQC7ukuteDTCTd28UVZMb9kvuNLZ2yDjcnLNFiOmeeVHo93qVIogzYVRJrA5+mknj15LeYKeP/fI
+    UcQfW96QAuuPrFT6BSkypzmfqzm6tgiN06vzgnIlFtY+3A2V0uw6T8kw0zPs6vICybi4Jwy4gx8a3b2+G8VCu22j+1jR+c+DTUzfceJWMMsWdUjhez009UUgLYn6wdSCEa062vxt27lTXgZBft2ESKeeSIEG5FDKTeK
+    diqIv0ifWFlIj6cEPEwBJ79olN1pYXB8djOutBQ5y+Mv2A3PUi8IHfc3SO6zBGr4wis73nzEYD6BGBRLKrrZNLH/t5HsAMatl7f6EUmtzb3fIn8bv2XTS0oI7uQZ0Cs+K5dtdxEDQoe7hNRcDDTI5kFgede8svz6mP9
+    /3X40B3QGosVwHhCkYssY62jxuyBLbWFHf5VL4bwqHvCESx7Y9EB+EtIpZAGbHTr7y7m+Q46vjmeF+CfzGNXWJVhadneSs77shAVxuRHMdvl1JcbT2Hec+T+AqmmOIMU5ntRCBWVefaVLLZhldRD8x3oLKHOBbpZ1Nq
+    8WHAxmvCIzbenAVZgQosAS3FD27CYWD3o73DczrCtE="
+
+  - secure: "Pzvs/oOOvm1+1h88dV8cIHC7RZyJZaJgtFZAlUYVt7SFlFXO8QGehobf5Px1UIglMUKH0/6UHoOutboxacz1jrLdafw1TcQhVzMXMAqFgxeKM3g1XWpjS924CDSfKO6m714/xxEbdAMs2+XNpBMlRn3f
+    aBfeicllfT7OKG5XksCdXg+MjrcmCg0zgxH5VpdAIS0oIomBbcTAz5QejoflbqSfeHLKaRqr9cVqAGK9FonKgxj/+1kFfzIrIa/7oFClqevXx40PIYLOIuxu2cEU9vo3r2EFZuDADxPehK28s4Jjb29qOp+8hRxDaZa
+    XEuYIws82cHJRMqj+rryfJCX1ZR0DD1IBQCUI3BxwhHGHH+X8Ygc7QNNicYku/O3e+wgiv/wnZW+iux3jun2q557D2WPLkuDjLJrm1U8ehWRBIHCjc4srjuSUG2xU6oJynvsqccjZKrGKu7j+pQI0VGDT9CbjO0UVcK
+    vWKl36O8vhwf28QQYFB26HuWkwYdftAWsLQIHWfnSx2bMIji2rzG6T3laBH0eItzI61SiE8EfY6NcQVEz0SYziMhitYH3kkfYzLLsWG5bBYxbfhvc0TMlLoxlu2oLkUEZVAjgV+VwO9D9NgAXJGE1ffS9OMOlV6F5Rq
+    PMKpbUtf6p5PTy10R/M69Z8ZLlj2PgSIdDhlR42LwA="
+
+script:
+  - python -u app.py
+
+
+
