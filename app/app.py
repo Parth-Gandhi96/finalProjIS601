@@ -44,10 +44,9 @@ def testHelper():
             password="",
             database="finalProjData"
         )
-        myCursor = mydb.cursor()
+        cursor = mydb.cursor()
     except:
         print("Some error while fetching data using mysql connector!")
-    cursor = myCursor
 
 
 @app.route('/', methods=['GET'])
