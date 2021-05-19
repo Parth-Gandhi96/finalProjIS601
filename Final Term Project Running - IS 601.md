@@ -30,7 +30,9 @@
 ![Screenshot (117).png](https://www.dropbox.com/s/yrvkgxvwcarut9r/Screenshot%20%28117%29.png?dl=0&raw=1)
 
 <br>
+
 #### Once account is verified, receives an email saying Registered:
+
 <br>
 
 ![Screenshot (127).png](https://www.dropbox.com/s/sh5rkf766gkmshs/Screenshot%20%28127%29.png?dl=0&raw=1)
