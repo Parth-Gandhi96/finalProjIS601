@@ -2,8 +2,13 @@ import unittest
 from app import app
 
 class HomeViewTest(unittest.TestCase):
-    # @classmethod
-    # def setUpClass(cls):
+    @classmethod
+    def setUpClass(cls):
+        try:
+            app.createRunAppTest()
+        except Exception as e:
+            print("Error while creating the app and running it")
+            print(e)
 
     def test_avgProfitGenreWiseJSON(self):
         try:

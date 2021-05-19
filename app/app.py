@@ -28,6 +28,19 @@ app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
 mysql.init_app(app)
 
 
+def createRunAppTest(self):
+    self.app = Flask(__name__)
+
+    self.mysql = MySQL(cursorclass=DictCursor)
+
+    self.app.config['MYSQL_DATABASE_HOST'] = 'db'
+    self.app.config['MYSQL_DATABASE_USER'] = 'root'
+    self.app.config['MYSQL_DATABASE_PASSWORD'] = ''
+    self.app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
+    self.mysql.init_app(app)
+
+    self.app.run(host='0.0.0.0')
+
 @app.route('/', methods=['GET'])
 def homePage():
     return render_template('signin.html',msg={'errorMsg':'None'})
