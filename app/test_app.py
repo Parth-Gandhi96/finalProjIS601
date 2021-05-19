@@ -9,7 +9,7 @@ class HomeViewTest(unittest.TestCase):
     def setUpClass(cls):
         cls.temp_app = app()
 
-    def setUp(self):
+    def test_fetchAvgProfitGenreWise(self):
         try:
             data = cls.temp_app.fetchAvgProfitGenreWise()
             if data is None:
@@ -18,6 +18,9 @@ class HomeViewTest(unittest.TestCase):
                 print("Data is not NONE")
         except:
             print("Cannot call the function for fetchAvgProfitGenreWise!")
+
+    def test_tempPass_always(self):
+        pass
 
 
 if __name__ == "__main__":
