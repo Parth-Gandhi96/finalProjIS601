@@ -4,6 +4,8 @@ from app import app
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
 
+import mysql.connector
+
 class HomeViewTest(unittest.TestCase):
 
     @classmethod
@@ -17,6 +19,21 @@ class HomeViewTest(unittest.TestCase):
         except Exception as e:
             print("Error while creating the app and running it")
             print(e)
+
+        try:
+            mydb = mysql.connector.connect(
+                host="127.0.0.1",
+                user="root",
+                password="",
+                database="finalProjData"
+            )
+            mycursor = mydb.cursor()
+            mycursor.execute("SELECT * FROM userTable")
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                print(x)
+        except:
+            print("some error while fetching data using mysql connector!")
 
     def test_avgProfitGenreWiseJSON(self):
         try:
