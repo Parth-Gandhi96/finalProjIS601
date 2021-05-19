@@ -1,5 +1,5 @@
 import unittest
-import app
+from main import app
 import os
 
 
@@ -7,6 +7,12 @@ class HomeViewTest(unittest.TestCase):
 
     # def test_test(self):
     #     assert app.test() == "Works!"
+
+    tempApp = None
+
+    @classmethod
+    def setUpClass(cls):
+        tempApp = app()
 
     def test_env_var(self):
         try:
