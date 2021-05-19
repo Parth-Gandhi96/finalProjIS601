@@ -1,23 +1,19 @@
 import unittest
 import app
-
+import requests
 
 class HomeViewTest(unittest.TestCase):
-    temp_app = None
 
-    @classmethod
-    def setUpClass(cls):
-        cls.temp_app = app()
-
-    def test_fetchAvgProfitGenreWise(self):
+    def test_avgProfitGenreWiseJSON(self):
         try:
-            data = cls.temp_app.fetchAvgProfitGenreWise()
+            data = requests.get('http://localhost:5000/avgProfitGenreWiseJSON')
+            print(data)
             if data is None:
-                print("Data is NONE")
+                print("avgProfitGenreWiseJSON Data is NONE")
             else:
-                print("Data is not NONE")
+                print("avgProfitGenreWiseJSON Data is not NONE")
         except:
-            print("Cannot call the function for fetchAvgProfitGenreWise!")
+            print("Cannot call the function for avgProfitGenreWiseJSON!")
 
     def test_tempPass_always(self):
         pass
