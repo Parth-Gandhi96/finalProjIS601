@@ -6,7 +6,7 @@ class HomeViewTest(unittest.TestCase):
 
     def test_avgProfitGenreWiseJSON(self):
         try:
-            data = requests.get('http://0.0.0.0:5000/avgProfitGenreWiseJSON')
+            data = requests.get('http://localhost:5000/avgProfitGenreWiseJSON')
             print(data)
             if data is None:
                 print("avgProfitGenreWiseJSON Data is NONE")
