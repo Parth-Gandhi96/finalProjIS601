@@ -20,12 +20,13 @@ class HomeViewTest(unittest.TestCase):
                 database="finalProjData"
             )
             cls.myCursor = mydb.cursor()
+            app.cursor = cls.myCursor
         except:
             print("Some error while fetching data using mysql connector!")
 
     def test_avgProfitGenreWiseJSON(self):
         try:
-            data = app.avgProfitGenreWiseJSON(self.myCursor)
+            data = app.avgProfitGenreWiseJSON()
             print(data)
             if data is None:
                 print("avgProfitGenreWiseJSON Data is NONE")

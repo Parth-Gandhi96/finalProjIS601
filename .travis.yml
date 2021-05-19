@@ -17,11 +17,7 @@ env:
    JXIQ/XvOFvuRZY7VkRtxKopRTS8kEmCRpCh1WDqVVALgjZBhLUrhsQ/zyALQv1nC2ywIrQk8xMSaSE9ts+bvlvt/p0a1V4X0icIgn6TefxgWyiKtbQ5yR9ib3mzshy0afsQwo4gs4hnQJN9HyjcXwEtqUcHV+vLioMB
    nKesFtiAdEU5ScUqt1r79rD8onDd5PpoDTdD1f9CZA="
 before_script:
-  - sleep 20
   - mysql -u root --password="" < db/init.sql
-#  - export FLASK_APP=app/app.py
-#  - flask run -h localhost -p 5000 > /dev/null 2>&1 &
-  - sleep 20
 script:
   - python -m pytest -v -s
 
