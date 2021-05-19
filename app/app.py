@@ -27,7 +27,7 @@ app.config['MYSQL_DATABASE_PASSWORD'] = ''
 app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
 mysql.init_app(app)
 
-cursor = mysql.get_db().cursor()
+cursor = None
 
 
 @app.route('/', methods=['GET'])
@@ -489,4 +489,5 @@ def sendEmail(to_email,subject_email,content_email):
         print(e)
 
 if __name__ == '__main__':
+    cursor = mysql.get_db().cursor()
     app.run(host='0.0.0.0')
