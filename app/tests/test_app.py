@@ -1,16 +1,14 @@
 import unittest
 from app import app
 
-from flaskext.mysql import MySQL
-from pymysql.cursors import DictCursor
-
 import mysql.connector
 
-class HomeViewTest(unittest.TestCase):
+from flask import request, Response
 
-
-    @classmethod
-    def setUpClass(cls):
+class helper:
+    @staticmethod
+    def getMySqlCursor():
+        myCursor = None
         try:
             mydb = mysql.connector.connect(
                 host="127.0.0.1",
@@ -21,30 +19,27 @@ class HomeViewTest(unittest.TestCase):
             myCursor = mydb.cursor()
         except:
             print("Some error while fetching data using mysql connector!")
+        return myCursor
+
+class AppTest(unittest.TestCase):
 
     def test_avgProfitGenreWiseJSON(self):
-        try:
-            mydb = mysql.connector.connect(
-                host="127.0.0.1",
-                user="root",
-                password="",
-                database="finalProjData"
-            )
-            myCursor = mydb.cursor()
-        except:
-            print("Some error while fetching data using mysql connector!")
-
-        try:
-            app.cursor = myCursor
-            data = app.avgProfitGenreWiseJSON()
-            print(data)
-            if data is None:
-                print("avgProfitGenreWiseJSON Data is NONE")
-            else:
-                print("avgProfitGenreWiseJSON Data is not NONE")
-        except Exception as e:
-            print("Cannot call the function for avgProfitGenreWiseJSON!")
-            print(e)
+        myCursor = helper.getMySqlCursor();
+        if myCursor is None:
+            print("Cursor object is returned None!")
+        else:
+            try:
+                app.cursor = myCursor
+                res = app.avgProfitGenreWiseJSON()
+                print(res)
+                if res is None:
+                    print("avgProfitGenreWiseJSON Data is NONE")
+                else:
+                    self.assertEqual(res.status_code, 200)
+                    print("Successfully checked for avgProfitGenreWiseJSON: 200 OK!")
+            except Exception as e:
+                print("Cannot call the function for avgProfitGenreWiseJSON!")
+                print(e)
 
     def test_tempPass_always(self):
         pass
