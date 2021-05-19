@@ -11,7 +11,7 @@ class AppTest(unittest.TestCase):
         try:
             try:
                 app.cursor = mysql.connector.connect(host="127.0.0.1", user="root", password="",
-                                                     database="finalProjData").cursor
+                                                     database="finalProjData").cursor()
             except:
                 print("Error while fetching data using mysql connector!")
             res = app.avgProfitGenreWiseJSON()
