@@ -31,7 +31,7 @@
   - [X] add .travis.yml file in project
   - [X] add encrypted keys as env variable
   - [X] mysql server, before script runs, execute DDL script
-  - [ ] implement Unittests
+  - [ ] implement Unittest python code
     - [X] 4 charts JSON check - 200 OK status as response
     - [ ] Signin, SignUp, Account Verification, reset password and forget password test scenarios
 
