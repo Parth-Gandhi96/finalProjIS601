@@ -3,6 +3,7 @@
 #### Final Project
 **Devlopers** : Parthkumar Anilkumar Gandhi
 ****
+[![Build Status](https://travis-ci.com/Parth-Gandhi96/finalProjIS601.svg?branch=travisCI)](https://travis-ci.com/Parth-Gandhi96/finalProjIS601)
 
 #### Setup guide:
 [Doc containing setup instruction step-by-step](Final%20Team%20Project%20Setup%20Guide%20-%20IS%20601.md)
@@ -19,12 +20,20 @@
   - [X] IMDB wise Avg profit
   - [X] Genre wise Avg profit
   - [X] Last Five years Data
-    
+  
 *Side features/task:*
 - [X] Home page after signing in, explain about website and project
 - [X] Logout option on Navbar
 - [X] Create and write in README the GitHub pages URL
 
+#### CICD:
+- [X] create CICD on Travis CI
+  - [X] add .travis.yml file in project
+  - [X] add encrypted keys as env variable
+  - [X] mysql server, before script runs, execute DDL script
+  - [ ] implement Unittests
+    - [X] 4 charts JSON check - 200 OK status as response
+    - [ ] Signin, SignUp, Account Verification, reset password and forget password test scenarios
 
 #### Running of the project:
 [Doc with screenshots for explanation of running of the Project](Final%20Term%20Project%20Running%20-%20IS%20601.md)
