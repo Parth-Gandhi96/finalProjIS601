@@ -9,20 +9,17 @@ class AppTest(unittest.TestCase):
 
     def test_avgProfitGenreWiseJSON(self):
         try:
-            try:
-                app.cursor = mysql.connector.connect(host="127.0.0.1", user="root", password="",
-                                                     database="finalProjData").cursor()
-            except:
-                print("Error while fetching data using mysql connector!")
+            app.cursor = mysql.connector.connect(host="127.0.0.1", user="root", password="",
+                                                 database="finalProjData").cursor()
             res = app.avgProfitGenreWiseJSON()
             print(res.response)
             if res is None:
                 print("avgProfitGenreWiseJSON Data is NONE")
             else:
                 self.assertEqual(res.status_code, 200)
-                print("Successfully checked for avgProfitGenreWiseJSON: 200 OK!")
+                print("Passed Successfully avgProfitGenreWiseJSON: [res:200 OK]!")
         except Exception as e:
-            print("Cannot call the function for avgProfitGenreWiseJSON!")
+            print("Test Case failed: avgProfitGenreWiseJSON!")
             print(e)
 
     def test_tempPass_always(self):
