@@ -9,8 +9,9 @@ class AppTest(unittest.TestCase):
 
     def test_avgProfitGenreWiseJSON(self):
         try:
-            app.cursor = mysql.connector.connect(host="127.0.0.1", user="root", password="",
-                                                 database="finalProjData").cursor()
+            db = mysql.connector.connect(host="127.0.0.1", user="root", password="",
+                                                 database="finalProjData")
+            app.cursor = db.cursor()
             res = app.avgProfitGenreWiseJSON()
             print(res.response)
             if res is None:
