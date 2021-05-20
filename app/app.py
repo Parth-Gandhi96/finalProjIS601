@@ -16,21 +16,25 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 app = Flask(__name__)
+cursor = None
 
-mysql = MySQL(cursorclass=DictCursor)
 
-app.config['MYSQL_DATABASE_HOST'] = 'db'
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-# app.config['MYSQL_DATABASE_PORT'] = 3306
-app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
-mysql.init_app(app)
+def startApp():
+    mysql = MySQL(cursorclass=DictCursor)
 
-try:
-    cursor = mysql.get_db().cursor()
-except Exception as e:
-    print("Cursor init in APP didnt work correctly.")
-    print(e)
+    app.config['MYSQL_DATABASE_HOST'] = 'db'
+    app.config['MYSQL_DATABASE_USER'] = 'root'
+    app.config['MYSQL_DATABASE_PASSWORD'] = ''
+    # app.config['MYSQL_DATABASE_PORT'] = 3306
+    app.config['MYSQL_DATABASE_DB'] = 'finalProjData'
+    mysql.init_app(app)
+
+    global cursor
+    try:
+        cursor = mysql.get_db().cursor()
+    except Exception as e:
+        print("Cursor init in APP didnt work correctly.")
+        print(e)
 
 @app.route('/', methods=['GET'])
 def homePage():
@@ -302,7 +306,7 @@ def last5yearChartsJSON():
 
 ## Movie Database operations:
 def fetchMovieCollectionLast5Years():
-    inputData = (2016)
+    inputData = (2016,)
     select_query = """SELECT t.film_title, t.worldwide_gross, t.film_budget FROM movieData t WHERE t.release_year > %s """
     cursor.execute(select_query, inputData)
     fetchedData = cursor.fetchall()
